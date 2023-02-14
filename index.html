@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form>
+        <input type="text">
+        <button>发送</button>
+    </form>
+    <ul></ul>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io()
+        const form = document.querySelector('form') // get element 'form'
+        const input = document.querySelector('input') //get element 'input'
+        const ul = document.querySelector('ul')
+        const li = document.createElement('li')
+        li.textContent = 'hello'
+        ul.appendChild(li)
+
+        form.addEventListener('submit',e=>{
+            e.preventDefault()
+            if(input.value){ //if input is not empty
+                socket.emit('chat message',input.value) // trigger event 'chat message' and send the content of input.value
+                input.value='' //Clean the chat box
+
+            }
+        })
+
+        socket.on('chat message',msg =>{
+            const li = document.createElement('li')
+            li.textContent = msg
+            ul.appendChild(li)
+        })
+    </script>
+
+</body>
+</html>
