@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form>
+        <label for="fname">Username:</label>
+        <input type="text" id="fname" name="fname"><br><br>
+<!--        <label for="lname">Password:</label>-->
+<!--        <input type="text" id="lname" name="lname"><br><br>-->
+        <button>Login</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io()
+        const form = document.querySelector('form') // get element 'form'
+        const input = document.querySelector('input') //get element 'input'
+
+        form.addEventListener('login',e=>{
+            if(input.value){ //if input is not empty
+                socket.emit('login',input.value) // trigger event 'chat message' and send the content of input.value
+            }
+        })
+
+    </script>
+
+</body>
+</html>
